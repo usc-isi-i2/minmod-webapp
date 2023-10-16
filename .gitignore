@@ -1,0 +1,6 @@
+.idea/
+.DS_Store
+./WEB-INF/classes
+./WEB-INF/lib
+./WEB-INF/ontologies
+./WEB-INF/spring
