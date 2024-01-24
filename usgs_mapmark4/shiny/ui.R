@@ -19,6 +19,9 @@ ui <- fluidPage(
         #sidebar panel
         sidebarPanel(
             
+            #horizontal line
+            tags$hr(),
+            
             #upload deposit estimates
             fileInput(inputId = "depcsv", 
                       label = "Upload Deposit Estimates",
