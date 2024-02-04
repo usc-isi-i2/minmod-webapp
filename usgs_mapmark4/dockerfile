@@ -22,6 +22,9 @@ WORKDIR /srv/shiny-server/
 # Copy the Shiny app to the image
 COPY shiny .
 
+# Copy sample queries
+COPY sample_queries /srv/sample_queries
+
 # Allow permission
 RUN sudo chown -R shiny:shiny /srv/shiny-server
 
