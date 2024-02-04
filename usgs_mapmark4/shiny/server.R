@@ -71,7 +71,7 @@ run_minmod_query <- function(query, values = FALSE) {
                      values)
 }
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   #read grade-tonnage model dataframe
   myGatm <- reactive({
     if (query_executed()) {
@@ -188,6 +188,35 @@ server <- function(input, output) {
   query_executed <- reactiveVal(FALSE)
   query_result <- reactiveVal()
   
+  observe({
+    
+    query_files <- list.files(path = "../sample_queries", full.names = TRUE, pattern = "\\.sql$")
+    file_names <- list.files(path = "../sample_queries", pattern = "\\.sql$")
+    
+    choices <- setNames(query_files, file_names)
+    default_file_full_path <- if("zinc_gt_query.sql" %in% file_names) {
+      full_path <- query_files[file_names == "zinc_gt_query.sql"]
+      if(length(full_path) > 0) full_path[1] else query_files[1]
+    } else {
+      query_files[1]
+    }
+    # Ensure the selected value is set to the full path of the default file
+    updateSelectInput(session, "sample_queries",
+                      choices = choices,
+                      selected = default_file_full_path)
+  })
+  
+  observeEvent(input$sample_queries, {
+    if(!is.null(input$sample_queries) && nzchar(input$sample_queries)) {
+      if(file.exists(input$sample_queries)) {
+        file_contents <- readLines(con = input$sample_queries, warn = FALSE) %>% paste(collapse = "\n")
+        updateTextAreaInput(session, "sqlQuery", value = file_contents)
+      } else {
+        updateTextAreaInput(session, "sqlQuery", value = "File not found.")
+      }
+    }
+  })
+  
   observeEvent(input$executeQuery, {
     query_executed(TRUE)
     
@@ -214,8 +243,30 @@ server <- function(input, output) {
     }
   })
   
+  output$download_query_result_button <- renderUI({
+    # Only show the download button if there are results to download
+    if (!is.null(query_result()) && nrow(query_result()) > 0) {
+      downloadButton("download_data", "Download Query Results")
+    }
+  })
+  
+  output$download_data <- downloadHandler(
+    filename = function() {
+      paste("query-results-", format(Sys.time(), "%Y-%m-%d-%H-%M") , ".csv", sep = "")
+    },
+    content = function(file) {
+      # Write the query_result() dataframe to the CSV file
+      write.csv(query_result(), file, row.names = FALSE)
+    }
+  )
+  
   output$query_result_table <- renderTable({
-    query_result()
+    if (!is.null(query_result()) && nrow(query_result()) > 0) {
+      head(query_result(), 7)
+    } else {
+      # Return the full query_result() if it has 6 rows or fewer
+      query_result()
+    }
   })
   
   

@@ -49,6 +49,13 @@ ui <- fluidPage(
         rows = 18
       ),
       
+      selectInput(
+        inputId = "sample_queries", 
+        label = "Select Sample Query",  
+        choices = NULL,
+        width = '100%',
+      ),
+      
       # Button to execute the SQL query
       actionButton(
         inputId = "executeQuery",
@@ -56,6 +63,7 @@ ui <- fluidPage(
         icon = icon("play"),
         width = '100%'
       ),
+      
       
       #horizontal line
       tags$hr(),
@@ -170,7 +178,8 @@ ui <- fluidPage(
                  column(
                    width = 12,
                    uiOutput("query_output_header"),
-                   tableOutput(outputId = "query_output")
+                   tableOutput(outputId = "query_output"),
+                   uiOutput("download_query_result_button")
                  ),
                )),
       
