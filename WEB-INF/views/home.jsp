@@ -27,7 +27,7 @@
 
 		<div id="directs" style="font-size:20px; line-height: normal;">
 			<div id="abstract">This web application serves as a <a href="https://www.w3.org/standards/semanticweb/data" target="_blank">linked open data</a> browser and hosts a <a href="https://www.w3.org/TR/sparql11-query/" target="_blank">SPARQL</a> endpoint.<br><br>
-<a href="https://minmod.isi.edu/resource/Q0" style="font-size:25px;color:#990000">Start browsing the data!</a><br><br>
+<a href="https://minmod.isi.edu/resource/httpsw3idorgusgsz4530692r8gbbqjn1.html" style="font-size:25px;color:#990000">Start browsing the data!</a><br><br>
 The browser retrieves the RDF data from our SPARQL endpoint here: <a href="https://minmod.isi.edu/sparql" target="_blank">https://minmod.isi.edu/sparql</a>.</div>
 		</div>
 
