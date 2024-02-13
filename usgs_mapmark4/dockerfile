@@ -1,0 +1,35 @@
+# Base image
+FROM rocker/shiny:latest
+
+# Install system dependencies for R packages
+RUN apt-get update && apt-get install -y \
+    libcurl4-gnutls-dev \
+    libssl-dev \
+    libxml2-dev
+
+# Install necessary R packages
+RUN R -e "install.packages(c('compositions', 'mvtnorm', 'ks', 'corrplot', 'dplyr', 'purrr', 'shiny', 'shinybusy', 'shinycssloaders', 'stringr', 'ggiraph', 'ggplot2', 'httr', 'jsonlite'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages('httr')"
+
+# Download and install MapMark4 package
+RUN wget -P /tmp/ https://pubs.usgs.gov/tm/07/c14/MapMark4_1.0.tar.gz && \
+    R CMD INSTALL /tmp/MapMark4_1.0.tar.gz && \
+    rm /tmp/MapMark4_1.0.tar.gz
+
+# Set the working directory to /srv/shiny-server/
+WORKDIR /srv/shiny-server/
+
+# Copy the Shiny app to the image
+COPY shiny .
+
+# Copy sample queries
+COPY sample_queries /srv/sample_queries
+
+# Allow permission
+RUN sudo chown -R shiny:shiny /srv/shiny-server
+
+# Expose the port Shiny is running on
+EXPOSE 3838
+
+# Run app
+CMD ["R", "-e", "shiny::runApp('/srv/shiny-server/', host = '0.0.0.0', port = 3838)"]
