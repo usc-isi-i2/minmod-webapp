@@ -4,6 +4,28 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from helpers import sparql_utils
 from dash_ag_grid import AgGrid
+import monaco_editor
+
+editor_options = {
+    "autoIndent": "full",
+    "contextmenu": True,
+    "fontFamily": "monospace",
+    "fontSize": 13,
+    "lineHeight": 24,
+    "matchBrackets": "always",
+    "minimap": {
+        "enabled": False,
+    },
+    "scrollbar": {
+        "horizontalSliderSize": 4,
+        "verticalSliderSize": 18,
+    },
+    "selectOnLineNumbers": True,
+    "roundedSelection": False,
+    "readOnly": False,
+    "cursorStyle": "line",
+    "automaticLayout": True,
+}
 
 dash.register_page(__name__)
 
@@ -13,12 +35,12 @@ layout = html.Div(
             [
                 dbc.Row(
                     dbc.Col(
-                        dbc.Textarea(
+                        monaco_editor.MonacoEditor(
                             id="sparql-query",
-                            className="mb-3",
-                            placeholder="Enter SPARQL Query",
-                            size="md",
-                            rows=10,
+                            value="# Enter SPARQL query below",
+                            height="40vh",
+                            defaultLanguage="sparql",
+                            options=editor_options,
                         )
                     ),
                     align="center",
@@ -33,6 +55,7 @@ layout = html.Div(
                         },
                     ),
                     style={
+                        "margin-top": "15px",
                         "margin-bottom": "15px",
                     },
                 ),

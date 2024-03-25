@@ -11,13 +11,14 @@ app.layout = dash.html.Div(
                     dbc.NavItem(dbc.NavLink("Dashboard", active=True, href="/")),
                     dbc.NavItem(
                         dbc.NavLink(
-                            "Mineral Inventory", active=True, href="mineralinventory"
+                            "Mineral Site Data", active=True, href="mineralsite"
                         )
                     ),
                     dbc.NavItem(
                         dbc.NavLink("SPARQL Sandbox", active=True, href="sparql")
                     ),
-                ]
+                ],
+                style={"margin-left": "10px"},
             )
         ),
         dash.page_container,
