@@ -1,9 +1,10 @@
-dash==2.0.0  # Use the actual version you need
-plotly==5.3.1  # Use the actual version you need
-pandas==1.3.3  # Use the actual version you need
-numpy==1.21.2  # Use the actual version you need
+dash==2.0.0  
+plotly==5.3.1
+pandas==1.3.3
+numpy==1.21.2
 MarkupSafe==2.0.1
 Werkzeug==0.16.1
 requests==2.28.1
 dash_ag_grid==31.0.0
-dash-bootstrap-components==1.0.0  # Use the actual version you need
+monaco_editor==0.0.2 
+dash-bootstrap-components==1.0.0

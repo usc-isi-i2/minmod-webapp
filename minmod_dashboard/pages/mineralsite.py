@@ -21,18 +21,6 @@ column_defs = [
     for col in pivot_df.columns
 ]
 
-# column_defs = [
-#     {"headerName": "Make", "field": "make"},
-#     {"headerName": "Model", "field": "model"},
-#     {"headerName": "Price", "field": "price"},
-# ]
-
-# row_data = [
-#     {"make": "Toyota", "model": "Celica", "price": 35000},
-#     {"make": "Ford", "model": "Mondeo", "price": 32000},
-#     {"make": "Porsche", "model": "Boxster", "price": 72000},
-# ]
-
 # will be replaced with SPARQL
 labels = ["Nickel", "Zinc"]
 values = [1049, 1078]

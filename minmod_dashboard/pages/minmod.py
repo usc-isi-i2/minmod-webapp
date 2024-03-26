@@ -68,28 +68,3 @@ layout = html.Div(
         html.Div(id="url-div", style={"display": "none"}),
     ]
 )
-
-
-@callback(
-    Output("url", "children"),
-    [Input("clickable-plot", "clickData")],
-    prevent_initial_call=True,
-)
-def open_url(clickData):
-    if clickData:
-        filtered_df = pivot_df[pivot_df["ms_name"] == clickData["points"][0]["text"]]
-        return filtered_df["ms"]
-
-
-# Clientside function to open a new tab
-clientside_callback(
-    """
-    function(url) {
-        if(url) {
-            window.open(url);
-        }
-    }
-    """,
-    Output("url-div", "children"),  # Dummy output, we don't use it
-    [Input("url", "children")],  # Input is the URL to open
-)

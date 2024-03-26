@@ -9,6 +9,7 @@ app.layout = dash.html.Div(
             dbc.Nav(
                 [
                     dbc.NavItem(dbc.NavLink("Dashboard", active=True, href="/")),
+                    dbc.NavItem(dbc.NavLink("GT Model", active=True, href="gtmodel")),
                     dbc.NavItem(
                         dbc.NavLink(
                             "Mineral Site Data", active=True, href="mineralsite"
